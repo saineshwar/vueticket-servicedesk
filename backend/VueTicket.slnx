@@ -1,0 +1,19 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/TicketCore.Api/TicketCore.Api.csproj" />
+    <Project Path="src/TicketCore.Common/TicketCore.Common.csproj" />
+    <Project Path="src/TicketCore.Core/TicketCore.Core.csproj" />
+    <Project Path="src/TicketCore.Data/TicketCore.Data.csproj" />
+    <Project Path="src/TicketCore.Database/TicketCore.Database.csproj" />
+    <Project Path="src/TicketCore.Engine/TicketCore.Engine.csproj" />
+    <Project Path="src/TicketCore.Models/TicketCore.Models.csproj" />
+    <Project Path="src/TicketCore.Services/TicketCore.Services.csproj" />
+    <Project Path="src/TicketCore.ViewModels/TicketCore.ViewModels.csproj" />
+    <Project Path="src/TicketCore.Worker/TicketCore.Worker.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/TicketCore.Api.Tests/TicketCore.Api.Tests.csproj" />
+    <Project Path="tests/TicketCore.Core.Tests/TicketCore.Core.Tests.csproj" />
+    <Project Path="tests/TicketCore.Engine.Tests/TicketCore.Engine.Tests.csproj" />
+  </Folder>
+</Solution>

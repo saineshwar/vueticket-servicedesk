@@ -1,0 +1,22 @@
+# .NET
+bin/
+obj/
+*.user
+.vs/
+backend/src/TicketCore.Api/logs/
+backend/src/TicketCore.Worker/logs/
+logs/
+# Uploaded files and the dev mail pickup folder
+App_Data/
+TestResults/
+
+# Node / Vite
+node_modules/
+frontend/dist/
+test-results/
+frontend/playwright-report/
+
+# Secrets never live in the repo: use dotnet user-secrets or environment variables.
+appsettings.*.local.json
+.env
+.env.*
