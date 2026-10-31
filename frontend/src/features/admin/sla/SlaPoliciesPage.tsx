@@ -31,6 +31,7 @@ import { ErrorAlert } from '../../../components/ErrorAlert'
 import { PriorityChip } from '../../tickets/ticketUi'
 import { DurationField } from '../../sla/DurationField'
 import { formatMinutes } from '../../sla/slaFormat'
+import { showEmptyOption } from '../../../components/selectProps'
 
 export function SlaPoliciesPage() {
   const { t } = useTranslation()
@@ -157,11 +158,11 @@ function PolicyDialog({ policy, options, onClose }: { policy?: SlaPolicy; option
             <TextField id="policy-name" required label={t('slaPolicies.name')} value={name} onChange={(e) => setName(e.target.value)} placeholder="IT Help - Urgent incidents" />
 
             <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
-              <TextField id="policy-desk" select fullWidth label={t('slaPolicies.desk')} value={deskId} onChange={(e) => setDeskId(e.target.value === '' ? '' : Number(e.target.value))}>
+              <TextField id="policy-desk" select slotProps={showEmptyOption} fullWidth label={t('slaPolicies.desk')} value={deskId} onChange={(e) => setDeskId(e.target.value === '' ? '' : Number(e.target.value))}>
                 <MenuItem value="">{t('slaPolicies.allDesks')}</MenuItem>
                 {options.desks.map((d) => <MenuItem key={d.id} value={d.id}>{d.name}</MenuItem>)}
               </TextField>
-              <TextField id="policy-type" select fullWidth label={t('slaPolicies.type')} value={typeId} onChange={(e) => setTypeId(e.target.value === '' ? '' : Number(e.target.value))}>
+              <TextField id="policy-type" select slotProps={showEmptyOption} fullWidth label={t('slaPolicies.type')} value={typeId} onChange={(e) => setTypeId(e.target.value === '' ? '' : Number(e.target.value))}>
                 <MenuItem value="">{t('slaPolicies.allTypes')}</MenuItem>
                 {options.ticketTypes.map((x) => <MenuItem key={x.id} value={x.id}>{x.name}</MenuItem>)}
               </TextField>

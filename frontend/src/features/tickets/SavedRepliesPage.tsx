@@ -18,6 +18,7 @@ import type { CannedResponse } from '../../api/types'
 import { useAuth } from '../../auth/authContext'
 import { ErrorAlert } from '../../components/ErrorAlert'
 import { placeholders } from './savedReplyText'
+import { showEmptyOption } from '../../components/selectProps'
 
 export function SavedRepliesPage() {
   const { t } = useTranslation()
@@ -87,7 +88,7 @@ function SavedReplyDialog({ reply, onClose }: { reply?: CannedResponse; onClose:
             <TextField id="saved-body" required multiline minRows={5} label={t('savedReplies.body')} value={body} onChange={(e) => setBody(e.target.value)}
               helperText={t('savedReplies.placeholders', { list: placeholders.join('  ') })} />
             {!reply && teams.length > 0 && (
-              <TextField id="saved-team" select label={t('savedReplies.shareWith')} value={teamId} onChange={(e) => setTeamId(e.target.value === '' ? '' : Number(e.target.value))}>
+              <TextField id="saved-team" select slotProps={showEmptyOption} label={t('savedReplies.shareWith')} value={teamId} onChange={(e) => setTeamId(e.target.value === '' ? '' : Number(e.target.value))}>
                 <MenuItem value="">{t('savedReplies.onlyMe')}</MenuItem>
                 {teams.map((u) => <MenuItem key={u.orgUnitId} value={u.orgUnitId}>{u.name}</MenuItem>)}
               </TextField>

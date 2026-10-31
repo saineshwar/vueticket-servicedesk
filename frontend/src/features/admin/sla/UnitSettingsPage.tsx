@@ -1,12 +1,14 @@
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Dialog from '@mui/material/Dialog'
+import FormControlLabel from '@mui/material/FormControlLabel'
 import DialogActions from '@mui/material/DialogActions'
 import DialogContent from '@mui/material/DialogContent'
 import DialogTitle from '@mui/material/DialogTitle'
 import MenuItem from '@mui/material/MenuItem'
 import Paper from '@mui/material/Paper'
 import Stack from '@mui/material/Stack'
+import Switch from '@mui/material/Switch'
 import Table from '@mui/material/Table'
 import TableBody from '@mui/material/TableBody'
 import TableCell from '@mui/material/TableCell'
@@ -20,6 +22,7 @@ import { useTranslation } from 'react-i18next'
 import { slaApi } from '../../../api/endpoints'
 import type { AssignmentMode, LookupItem, UnitSettings } from '../../../api/types'
 import { ErrorAlert } from '../../../components/ErrorAlert'
+import { showEmptyOption } from '../../../components/selectProps'
 
 const modes: AssignmentMode[] = ['LoadBalanced', 'RoundRobin', 'Manual']
 
@@ -48,6 +51,10 @@ export function UnitSettingsPage() {
   const units = useQuery({ queryKey: ['unit-settings'], queryFn: slaApi.unitSettings })
   const options = useQuery({ queryKey: ['sla-options'], queryFn: slaApi.options })
   const [editing, setEditing] = useState<UnitSettings | null>(null)
+  const [showInactive, setShowInactive] = useState(false)
+  // Inactive units can't receive tickets, so they're hidden unless asked for.
+  const visible = (units.data ?? []).filter((u) => u.isActive || showInactive)
+  const hiddenCount = (units.data?.length ?? 0) - visible.length
 
   return (
     <Stack spacing={2} sx={{ maxWidth: 1100 }}>
@@ -56,6 +63,9 @@ export function UnitSettingsPage() {
         <Typography sx={{ color: 'text.secondary', mt: 0.5 }}>{t('unitSettings.intro')}</Typography>
       </Box>
       <ErrorAlert error={units.error ?? options.error} />
+      <FormControlLabel sx={{ alignSelf: 'flex-start' }}
+        control={<Switch checked={showInactive} onChange={(e) => setShowInactive(e.target.checked)} />}
+        label={showInactive || hiddenCount === 0 ? t('unitSettings.showInactive') : t('unitSettings.showInactiveCount', { count: hiddenCount })} />
 
       <Paper variant="outlined" sx={{ overflow: 'hidden' }}>
         <Box sx={{ overflowX: 'auto' }}>
@@ -69,7 +79,7 @@ export function UnitSettingsPage() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {units.data && treeOrder(units.data).map(({ unit: u, depth }) => (
+              {units.data && treeOrder(visible).map(({ unit: u, depth }) => (
                 <TableRow key={u.orgUnitId} sx={{ opacity: u.isActive ? 1 : 0.6 }}>
                   <TableCell sx={{ pl: 2 + depth * 2.5, minWidth: 240 }}>
                     <Typography variant="body2" sx={{ fontWeight: u.unitType === 'Team' ? 400 : 600 }}>{u.name}</Typography>
@@ -138,7 +148,7 @@ function UnitDialog({ unit, calendars, onClose }: { unit: UnitSettings; calendar
         <DialogContent>
           <Stack spacing={2} sx={{ pt: 1 }}>
             <ErrorAlert error={save.error} />
-            <TextField id="unit-calendar" select label={t('unitSettings.hours')} value={calendarId} disabled={!unit.canEditCalendar}
+            <TextField id="unit-calendar" select slotProps={showEmptyOption} label={t('unitSettings.hours')} value={calendarId} disabled={!unit.canEditCalendar}
               onChange={(e) => setCalendarId(e.target.value === '' ? '' : Number(e.target.value))}
               helperText={unit.canEditCalendar ? t('unitSettings.hoursHelp') : t('unitSettings.noCalendarRights')}>
               <MenuItem value="">{unit.parentId === null ? t('unitSettings.useDefault') : t('unitSettings.sameAsParent')}</MenuItem>

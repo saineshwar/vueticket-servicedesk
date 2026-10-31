@@ -23,6 +23,7 @@ import { orgApi, userApi } from '../../../api/endpoints'
 import type { CreateUser } from '../../../api/types'
 import { ErrorAlert } from '../../../components/ErrorAlert'
 import { Person } from '../../../components/Person'
+import { showEmptyOption } from '../../../components/selectProps'
 
 export function UsersPage() {
   const { t } = useTranslation()
@@ -130,7 +131,7 @@ function CreateUserDialog({ onClose }: { onClose: () => void }) {
               helperText={t('users.typeHelp')}>
               {(['Employee', 'Staff', 'Customer'] as const).map((x) => <MenuItem key={x} value={x}>{t(`users.types.${x}`)}</MenuItem>)}
             </TextField>
-            <TextField id="user-unit" select label={t('users.homeUnit')} value={form.homeOrgUnitId ?? ''}
+            <TextField id="user-unit" select slotProps={showEmptyOption} label={t('users.homeUnit')} value={form.homeOrgUnitId ?? ''}
               onChange={(e) => set('homeOrgUnitId', e.target.value === '' ? null : Number(e.target.value))}>
               <MenuItem value="">—</MenuItem>
               {(units.data ?? []).filter((u) => u.isActive).map((u) => (

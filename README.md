@@ -6,6 +6,24 @@ Plan: see the "VueTicket Rebuild Plan" document (v2, enterprise).
 
 This repository is the new build. The old ASP.NET MVC app (`../VueTicketCore`) and its database (`VueTicketDB`) are not touched.
 
+**Stack:** React 19 + TypeScript + MUI (Vite) · ASP.NET Core Web API on .NET 10 · SQL Server (EF Core + Dapper, DbUp migrations) · a separate engine worker for SLA, escalation and assignment.
+
+![Team lead's home dashboard](docs/screenshots/02-dashboard-team-lead.png)
+
+## Screenshots
+
+Screens from the development build with its sample data (Acme Group, IT Help desk).
+
+| | |
+|---|---|
+| **Ticket queues**: SLA column, sorted by what's due first<br>![Ticket queues](docs/screenshots/03-ticket-queues.png) | **Ticket**: conversation, internal notes, live SLA timers<br>![Ticket detail with SLA timers](docs/screenshots/04-ticket-detail-sla.png) |
+| **SLA policies**: targets and escalation path per priority<br>![SLA policies](docs/screenshots/06-sla-policies.png) | **SLA policy editor**: business-time targets and escalation levels<br>![SLA policy editor](docs/screenshots/07-sla-policy-editor.png) |
+| **Calendars & holidays**: business hours per time zone<br>![Calendars and holidays](docs/screenshots/08-calendars-holidays.png) | **Hours & assignment**: calendar and assignment mode per unit<br>![Hours and assignment](docs/screenshots/09-hours-and-assignment.png) |
+| **Engine**: when each background task ran, and its run log<br>![Engine monitor](docs/screenshots/10-engine-monitor.png) | **Account and access**: your permissions, next to Sign out<br>![Account and access panel](docs/screenshots/05-account-and-access.png) |
+| **Requester's home**: their own requests only<br>![Requester dashboard](docs/screenshots/11-dashboard-requester.png) | **Sign in**<br>![Sign in](docs/screenshots/01-sign-in.png) |
+
+<p align="center"><img src="docs/screenshots/12-phone-requester.png" alt="Requester home on a phone" width="260"><br><em>Works at phone width</em></p>
+
 ## Status
 
 **Phase 0: Foundation (first slice done)**

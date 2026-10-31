@@ -28,6 +28,7 @@ import { EscalationBanner, SlaPanel } from './SlaPanel'
 import { DeleteDialog, TransferDialog } from './TicketDialogs'
 import { formatWhen, useHistoryText } from './ticketFormat'
 import { PriorityChip, StatusChip } from './ticketUi'
+import { showEmptyOption } from '../../components/selectProps'
 
 export function TicketDetailPage() {
   const { t } = useTranslation()
@@ -209,7 +210,7 @@ function ReplyBox({ ticket, onUpdated }: { ticket: TicketDetail; onUpdated: (t: 
         {actions.canAttach && <FilePicker files={files} onChange={setFiles} disabled={send.isPending} />}
         <Stack direction={{ xs: 'column', sm: 'row' }} spacing={1.5} sx={{ alignItems: { sm: 'center' } }}>
           {actions.canChangeStatus && actions.allowedStatuses.length > 0 && (
-            <TextField id="reply-status" select label={t('ticket.setStatus')} value={newStatus}
+            <TextField id="reply-status" select slotProps={showEmptyOption} label={t('ticket.setStatus')} value={newStatus}
               onChange={(e) => setNewStatus(e.target.value)} sx={{ maxWidth: { sm: 240 } }}>
               <MenuItem value="">{t('ticket.keepStatus')}</MenuItem>
               {actions.allowedStatuses.map((s) => <MenuItem key={s} value={s}>{t(`status.${s}`)}</MenuItem>)}

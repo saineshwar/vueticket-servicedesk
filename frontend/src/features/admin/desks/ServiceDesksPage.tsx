@@ -23,6 +23,7 @@ import { useTranslation } from 'react-i18next'
 import { deskApi, orgApi } from '../../../api/endpoints'
 import type { Category, DeskAudience, OrgUnit, ServiceDesk } from '../../../api/types'
 import { ErrorAlert } from '../../../components/ErrorAlert'
+import { showEmptyOption } from '../../../components/selectProps'
 
 type Editing =
   | { kind: 'desk'; desk?: ServiceDesk }
@@ -219,7 +220,7 @@ function CategoryDialog({
             <TextField id="category-name" required label={t('desks.category')} value={name} onChange={(e) => setName(e.target.value)} placeholder="Network or VPN" />
             <TextField id="category-description" label={t('desks.description')} value={description} onChange={(e) => setDescription(e.target.value)}
               helperText={t('desks.categoryDescriptionHelp')} />
-            <TextField id="category-team" select label={t('desks.routesTo')} value={teamId} onChange={(e) => setTeamId(e.target.value === '' ? '' : Number(e.target.value))}>
+            <TextField id="category-team" select slotProps={showEmptyOption} label={t('desks.routesTo')} value={teamId} onChange={(e) => setTeamId(e.target.value === '' ? '' : Number(e.target.value))}>
               <MenuItem value="">{t('desks.deskDefault', { team: desk.defaultTeamName })}</MenuItem>
               {teams.map((u) => <MenuItem key={u.orgUnitId} value={u.orgUnitId}>{u.name} ({u.code})</MenuItem>)}
             </TextField>

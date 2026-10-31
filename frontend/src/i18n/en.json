@@ -457,7 +457,10 @@
     "maxOpenHelp": "Agents at this limit are skipped.",
     "alert": "Unassigned alert (minutes)",
     "alertHelp": "Team leads are alerted when a ticket waits this long.",
-    "appliesNote": "The engine picks up changes within two minutes."
+    "appliesNote": "The engine picks up changes within two minutes.",
+    "showInactive": "Show inactive units",
+    "showInactiveCount_one": "Show {{count}} inactive unit",
+    "showInactiveCount_other": "Show {{count}} inactive units"
   },
   "account": {
     "open": "{{name}}: your account and access",
